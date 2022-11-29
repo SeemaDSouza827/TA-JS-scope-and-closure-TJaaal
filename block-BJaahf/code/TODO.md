@@ -10,8 +10,11 @@
 **You can use normal for loop for this function**
 
 ```js
-function loop() {
+function loop(n,fn,up,dy) {
   // Your code goes here
+for (let i=n;fn;i++){
+  dy(i)
+}
 }
 
 loop(
@@ -30,7 +33,14 @@ loop(
 Here's how it works. The function has an "accumulator value" which starts as the `initialValue` and accumulates the output of each loop. The array is iterated over, passing the accumulator and the next array element as arguments to the `callback`. The callback's return value becomes the new accumulator value. The next loop executes with this new accumulator value. In the example above, the accumulator begins at 0. `add(0,4)` is called. The accumulator's value is now 4. Then `add(4, 1)` to make it 5. Finally `add(5, 3)` brings it to 8, which is returned.
 
 ```js
-function reduce(array, callback, initialValue) {}
+function reduce(array, callback, initialValue) {
+let sum = initialValue;
+  for ( let i = 0 ; i < array.length ; i++ ){
+   sum = callback(sum,array[i])  
+  }
+  return sum;
+}
+
 
 // Test
 var nums = [4, 1, 3];
@@ -43,8 +53,16 @@ reduce(nums, add, 0); //-> 8
 3. Construct a function intersection that compares input arrays and returns a new array with elements found in all of the inputs.
 
 ```js
-function intersection(arrays) {}
-
+function intersection(...arr) {
+  let first = arr[0]
+   for(let i = 1; i < arr.length; i++){
+     let second = arr[i];
+     first = first.filter(ele => {
+       return second.includes(ele)
+     })
+   }
+   return first
+}
 // Test
 console.log(
   intersection(
@@ -58,8 +76,33 @@ console.log(
 4. Construct a function `union` that compares input arrays and returns a new array that contains all elements. If there are duplicate elements, only add it once to the new array. Preserve the order of the elements starting from the first element of the first input array.
 
 ```js
-function union(arrays) {}
+function every(array, test) {
+  // Your code here.
+  let trueS = 0;
+  let falseS = 0;
+  for ( let n = 0 ; n < array.length ; n++ ){
+    if ( test(array[n]) ){
+      trueS += 1;
+      } 
+    else{
+      falseS += 1;
+    } 
+  }
+  if ( trueS == array.length ){
+  return true ; 
+  }
+  else { 
+  return false ;
+  }
+}
 
+
+console.log(every([1, 3, 5], (n) => n < 10));
+// → true
+console.log(every([2, 4, 16], (n) => n < 10));
+// → false
+console.log(every([], (n) => n < 10));
+// → true
 // Test
 console.log(
   union([5, 10, 15], [15, 88, 1, 5, 7], [100, 15, 10, 1, 5])

@@ -4,6 +4,11 @@
 
 ```js
 // Your code goes here
+function multiplyBy(numA){
+  return function double(numB){
+    return numA*numB;
+  }
+}
 
 const double = multiplyBy(2);
 const final = double(15); // final should be 30
@@ -13,6 +18,11 @@ const final = double(15); // final should be 30
 
 ```js
 // Your code goes here
+function fullName(firstName){
+  return function(lastName){
+    return `${firstName} ${lastName}`
+  }
+}
 
 const name = fullName('Will');
 const final = name('Smith'); // final should be "Will Smith"
@@ -23,6 +33,7 @@ const final = name('Smith'); // final should be "Will Smith"
 ```js
 function isInBetween(a, b) {
   // your code goes here
+  return (n) => n > a && n< b ? true : false; 
 }
 
 const isChild = isInBetween(10, 100);
@@ -36,7 +47,9 @@ isChild(103); // false
 ```js
 function letsWishThem(greeting) {
   // your code goes here
+  return (message)=>greeting.concat (" ",message);
 }
+
 
 const callWithHey = letsWishThem('Hey');
 const callWithHello = letsWishThem('Hello');
@@ -47,8 +60,11 @@ callWithHello('How Are You?'); // Hello How Are You?
 5. Write a function called `addGame` which takes a string (name of the game) and the current score. It returns a function calling that will increment the score by one and print something like `Score of Basketball is 1`.
 
 ```js
-function addGame(gameName) {
+function addGame(gameName, cs) {
   // your code goes here
+  return ()=>{
+    console.log(`the Score of ${gameName} is ${++cs}`);
+    }
 }
 
 // Output
@@ -57,7 +73,7 @@ hockey(); // Your score of Hockey is 1
 hockey(); // Your score of Hockey is 2
 const cricket = addGame('Cricket', 1);
 cricket(); // Your score of Cricket is 2
-cricket(); // Your score of Cricket is 2
+cricket(); // Your score of Cricket is 3
 ```
 
 6. Write a function called `getCard` which takes one of these options (club, spade, heart, diamond) returns a function calling that function returns random card (2,3,4,5,6,7,8,9,10,J, Q, K, A) of that suit.
@@ -65,6 +81,11 @@ cricket(); // Your score of Cricket is 2
 ```js
 function getCard(suit) {
   // your code goes here
+    return () => {
+    let cards = [2,3,4,5,6,7,8,9,10,'J', 'Q', 'K', 'A'];
+    console.log(suit);
+    return `Card is ${cards[Math.floor(Math.random()*cards.length)]} ${suit}`
+  }
 }
 
 // Output
@@ -75,3 +96,4 @@ const randomSpade = getCard('Spade');
 randomSpade(); // Card is: 6 Spade
 randomSpade(); // Card is: A Spade
 ```
+

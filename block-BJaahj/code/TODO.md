@@ -206,7 +206,6 @@ function sayHey() {
   console.log('Hey');
 }
 schedule([sayHi, sayHello, sayHey], [2, 3, 4]);
-
 // sayHi will be executed after 2 seconds
 // sayHello will be executed after 3 seconds
 // sayHey will be executed after 4 seconds

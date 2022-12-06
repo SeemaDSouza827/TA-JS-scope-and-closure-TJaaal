@@ -7,8 +7,12 @@ The returned function accepts a sentence. If the sentence contains the `fromWord
 ```js
 function censor(fromWord, toWord) {
   //  Your code goes here
+  return function(sentence){
+    if(sentence.includes(fromWord)){
+      return sentence.replace(fromWord,toWord)
+    }
+  }
 }
-
 let censorSentence = censor('World', 'Sam');
 censorSentence('Hello World'); // Hello Sam
 
@@ -24,9 +28,24 @@ The returned function either accepts two parameter or one parameter.
 - When you pass one parameter it should return a string with words replaced with the required words.
 
 ```js
-function multipleCensor() {
-  //  Your code goes here
+function multipleCensor(){
+  let words = []
+  return function(...params){
+    
+    if(params.length === 1){
+      let quotes = params[0]
+      words.forEach(pair => {
+        quotes.replace(pair[0],pair[1])
+      });
+      return quotes;
+    }else if(params.length === 2){
+      words.push(params)
+    }else{
+      alert(`Number of parameters has to be two or less boss!`)
+    }
+  }
 }
+
 
 let censorQuote = multipleCensor();
 censorQuote('forget', 'remember'); // two parameter no return
@@ -49,8 +68,17 @@ The returned function accepts one parameter.
 - If the parameter is the same as the password it will return the object in which we stored the values.
 
 ```js
-function createCache() {
+function createCache(cb,psswd) {
+  let finalObj = {}
   // Your code goes here
+  return function(param){
+    if(param !== psswd){
+      finalObj[param] = cb(param);
+      return cb(param);
+    }else{
+      return finalObj;
+    }
+  }
 }
 
 function add10(num) {
@@ -69,8 +97,24 @@ addCache('foo'); // {12: 22, 100: 110, 1: 11}
 4. Change the above function in such a way that when the returned function is called with any other value than password. It should first check the object where we are storing the argument and return value. If the key is present return the value form the object itself. Otherwise call the callback function with the parameter.
 
 ```js
-function createCache() {
+function createCache(cb,psswd) {
+  let finalObj = {}
   // Your code goes here
+  return function(param){
+    
+    if(param !== psswd){
+      if(finalObj[param]){
+        console.log(`Param is already present`)
+        return finalObj[param]
+      }else{
+        finalObj[param] = cb(param);
+        return cb(param);
+      }
+    }
+    else{
+      return finalObj;
+    }
+  }
 }
 
 function add10(num) {
